@@ -27,6 +27,13 @@ btnLoadMore.addEventListener('click', async () => {
   const res = await getAllFoto(params.searchValue, params.perPage, params.page);
 
   gallery.insertAdjacentHTML('beforeend', galleryMaker(res.hits));
+  const galleryBox = new SimpleLightbox('.gallery-link', {
+    captions: true,
+    captionsData: 'alt',
+    captionDelay: 250,
+    captionPosition: 'bottom',
+  });
+  galleryBox.refresh();
   checkLoadStatus();
   loadMessage.innerHTML = '';
 });
