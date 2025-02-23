@@ -1,73 +1,65 @@
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
-const gallery = document.querySelector('.gallery');
-
 export function galleryClear() {
   const gallery = document.querySelector('.gallery');
-  gallery.textContent = '';
+  gallery.innerHTML = '';
 }
 
-export function fotoMaker(imageArr) {
-  galleryClear();
-  // console.log(imageArr);
-  const listImages = imageArr
-    .map(
-      foto =>
-        `<li class="gallery-item">
-	            <a class="gallery-link" href="${foto.largeImageURL}">
+export function galleryMaker(imageArr) {
+  return imageArr.map(elem => itemMaker(elem)).join('');
+}
+
+function itemMaker(foto) {
+  const {
+    largeImageURL,
+    webformatURL,
+    tags,
+    likes,
+    views,
+    comments,
+    downloads,
+  } = foto;
+  return `<li class="gallery-item">
+	            <a class="gallery-link" href="${largeImageURL}">
 		            <img 
 			          class="gallery-image" 
-			          src="${foto.webformatURL}" 
-			          alt="${foto.tags}" 
+			          src="${webformatURL}" 
+			          alt="${tags}" 
 			        />
 	            
               <div class="gallery-dl">
                 <div>
                   <p class="gallery-info">Likes</p>
-                  <p class="gallery-value">${foto.likes}</p>
+                  <p class="gallery-value">${likes}</p>
                 </div>
                 <div>
                   <p class="gallery-info">Views</p>
-                  <p class="gallery-value">${foto.views}</p>
+                  <p class="gallery-value">${views}</p>
                 </div>
                 <div>
                   <p class="gallery-info">Comments</p>
-                  <p class="gallery-value">${foto.comments}</p>
+                  <p class="gallery-value">${comments}</p>
                 </div>
                 <div>
                   <p class="gallery-info">Downloads</p>
-                  <p class="gallery-value">${foto.downloads}</p>
+                  <p class="gallery-value">${downloads}</p>
                 </div>
               </div>
               </a>  
-        </li>`
-    )
-    .join(' ');
-
-  gallery.insertAdjacentHTML('beforeend', listImages);
-
-  const galleryBox = new SimpleLightbox('.gallery-link', {
-    captions: true,
-    captionsData: 'alt',
-    captionDelay: 250,
-    captionPosition: 'bottom',
-  });
-  galleryBox.refresh();
+        </li>`;
 }
 
-export function messageAllert(messageSnack) {
+export function messageAllert(message, text, backColor) {
   iziToast.show({
     position: 'topRight',
-    title: 'error',
+    title: message,
     titleColor: 'white',
-    message: messageSnack,
+    message: text,
     messageSize: '24px',
     messageLineHeight: '24px',
     messageColor: 'white',
-    backgroundColor: ' #ef4040',
+    backgroundColor: backColor,
     theme: 'dark',
   });
 }

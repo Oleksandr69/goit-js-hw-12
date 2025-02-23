@@ -1,20 +1,22 @@
 import axios from 'axios';
-import { messageAllert } from './render-functions';
+// import { messageAllert } from './render-functions';
 
-const axiosFotoSearch = axios.create({});
+const API_KEY = '48882372-89a0cb49e548afa674928e493';
 
-export function getAllFoto(value) {
+export async function getAllFoto(value, perPage, page) {
   const searchParams = new URLSearchParams({
-    key: '48882372-89a0cb49e548afa674928e493',
+    key: API_KEY,
     q: value,
     image_type: 'photo',
     orientation: 'horizontal',
     safesearch: 'true',
+    per_page: perPage,
+    page: page,
+    language: 'en',
   });
-  return axiosFotoSearch
-    .get(`https://pixabay.com/api/?${searchParams}`)
-    .then(res => res.data)
-    .catch(error => console.log(error));
+
+  const result = await axios.get(`https://pixabay.com/api/?${searchParams}`);
+  return result.data;
 }
 // export function getFoto(id) {
 //   return axiosFotoSearch.get(`/fotos/${id}`).then(res => res.data);

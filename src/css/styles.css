@@ -45,7 +45,6 @@ body {
   width: 91px;
   height: 40px;
   background: #4e75ff;
-  /* border-style: none; */
   font-weight: 500;
   font-size: 16px;
   line-height: 1.5;
@@ -122,4 +121,25 @@ p.gallery-value {
   width: 360px;
   object-fit: cover;
   transition: transform 0.2s;
+}
+
+/* =========================load more========================== */
+
+.btn-load-more {
+  display: block;
+  margin: 0 auto;
+  border-radius: 8px;
+  padding: 8px 16px;
+  width: 126px;
+  height: 40px;
+  background: #4e75ff;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #fff;
+}
+
+.btn-load-more.is-hidden {
+  display: none;
 }
