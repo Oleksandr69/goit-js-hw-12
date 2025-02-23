@@ -36,6 +36,12 @@ btnLoadMore.addEventListener('click', async () => {
   galleryBox.refresh();
   checkLoadStatus();
   loadMessage.innerHTML = '';
+  // console.log(gallery.firstChild.getBoundingClientRect());
+  const height = gallery.firstChild.getBoundingClientRect();
+  scrollBy({
+    top: height.height * 2,
+    behavior: 'smooth',
+  });
 });
 
 async function fotosSearch(evt) {
@@ -66,6 +72,7 @@ async function fotosSearch(evt) {
           captionPosition: 'bottom',
         });
         galleryBox.refresh();
+
         checkLoadStatus();
       } else {
         hideBtnLoadMore();
@@ -97,7 +104,11 @@ function hideBtnLoadMore() {
 function checkLoadStatus() {
   if (params.page >= params.pageMax) {
     hideBtnLoadMore();
-    messageAllert('', 'The end!', 'rgb(9, 206, 42)');
+    messageAllert(
+      '',
+      "We're sorry, but you've reached the end of search results.",
+      'rgb(9, 206, 42)'
+    );
   } else {
     showBtnLoadMore();
   }
